@@ -1,6 +1,9 @@
 name: CI/CD
 
 on:
+  create:
+    tags:
+      - '*'
   push:
     branches: [ "soulx-master" ]
   pull_request:
@@ -166,4 +169,7 @@ jobs:
       - name: Release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn release
+        run: |
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+          npm publish --access public
+        # run: yarn release
