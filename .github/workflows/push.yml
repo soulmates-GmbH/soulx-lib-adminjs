@@ -1,13 +1,9 @@
 name: CI/CD
 
 on:
-  create:
-    tags:
-      - '*'
   push:
-    branches: [ "soulx-master" ]
-  pull_request:
-    branches: [ "soulx-master" ]
+    tags:
+      - 'v*'
 
 jobs:
   setup:
@@ -61,28 +57,16 @@ jobs:
       - name: bundle dev
         run: ONCE=true yarn bundle
       - name: Upload Build
-        if: |
-          contains(github.ref, 'refs/heads/soulx-master')
-          || contains(github.ref, 'refs/heads/beta-v7')
-          || contains(github.ref, 'refs/heads/beta')
         uses: actions/upload-artifact@v3
         with:
           name: lib
           path: lib
       - name: Upload Types
-        if: |
-          contains(github.ref, 'refs/heads/soulx-master')
-          || contains(github.ref, 'refs/heads/beta-v7')
-          || contains(github.ref, 'refs/heads/beta')
         uses: actions/upload-artifact@v3
         with:
           name: types
           path: types
       - name: Upload Bundle
-        if: |
-          contains(github.ref, 'refs/heads/soulx-master')
-          || contains(github.ref, 'refs/heads/beta-v7')
-          || contains(github.ref, 'refs/heads/beta')
         uses: actions/upload-artifact@v3
         with:
           name: bundle
@@ -108,25 +92,15 @@ jobs:
         run: yarn cspell
       - name: install codecov
         run: yarn global add codecov
-        if: contains(github.ref, 'refs/heads/soulx-master')
       - name: cover
-        if: contains(github.ref, 'refs/heads/soulx-master')
         run: yarn codecov
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: test
-        if: "!contains(github.ref, 'refs/heads/soulx-master')"
         run: yarn test
 
   publish:
     name: Publish
-    if: |
-      github.event_name == 'push'
-      && (
-        contains(github.ref, 'refs/heads/soulx-master')
-        || contains(github.ref, 'refs/heads/beta-v7')
-        || contains(github.ref, 'refs/heads/beta')
-      )
     needs:
       - test
       - build
