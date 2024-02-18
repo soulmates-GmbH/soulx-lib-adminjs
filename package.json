@@ -1,6 +1,6 @@
 {
   "name": "soulx-lib-adminjs",
-  "version": "1.0.3",
+  "version": "7.5.0",
   "description": "Admin panel for apps written in node.js",
   "type": "module",
   "exports": {
