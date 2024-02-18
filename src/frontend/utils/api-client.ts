@@ -143,7 +143,7 @@ class ApiClient {
   async searchRecords({ resourceId, query, searchProperty }: {
     resourceId: string;
     query: string;
-    searchProperty?: string;
+    searchProperty?: any;
   }): Promise<Array<RecordJSON>> {
     if (globalAny.isOnServer) { return [] }
     const actionName = 'search'
@@ -151,7 +151,7 @@ class ApiClient {
       resourceId,
       actionName,
       query,
-      ...(searchProperty ? { params: { searchProperty } } : undefined),
+      ...(searchProperty ? { params: { ...searchProperty } } : undefined),
     })
     checkResponse(response)
     return response.data.records

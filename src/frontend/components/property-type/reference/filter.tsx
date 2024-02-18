@@ -22,6 +22,7 @@ const Filter: React.FC<FilterPropertyProps> = (props) => {
     const records = await api.searchRecords({
       resourceId: property.reference as string,
       query: inputValue,
+      searchProperty: property.props.searchProperty,
     })
 
     const loadedOptions = records.map((r) => ({ value: r.id, label: r.title }))

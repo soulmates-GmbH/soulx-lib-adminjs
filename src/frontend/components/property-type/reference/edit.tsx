@@ -36,6 +36,7 @@ const Edit: FC<CombinedProps> = (props) => {
     const optionRecords = await api.searchRecords({
       resourceId,
       query: inputValue,
+      searchProperty: property.props.searchProperty,
     })
     return optionRecords.map((optionRecord: RecordJSON) => ({
       value: optionRecord.id,
