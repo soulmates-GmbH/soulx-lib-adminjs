@@ -293,6 +293,34 @@ class ApiController {
       ].join('\n'),
     }
   }
+
+  /**
+   * Switches language for the admin panel.
+   * To call it use {@link ApiClient#switchLanguage} method.
+   *
+   * Handler function responsible for a _.../api/resources/{resourceId}/bulk/{action}?recordIds={recordIds}_
+   *
+   * @param   {ActionRequest}  request
+   * @param   {any}  response
+   *
+   * @return  {Promise<{ redirectUrl: string }>}  action response
+   */
+  async switchLanguage(request: any): Promise<{ redirectUrl: string }> {
+    if (typeof this._admin.options.locale === 'function') {
+      const { lang } = request.params
+      const locale = await this._admin.options.locale(this.currentAdmin)
+      if (locale?.availableLanguages?.includes(lang)) {
+        const resource = this._admin.findResource('User')
+        if (resource && this?.currentAdmin?.userId) {
+          await resource.update(this.currentAdmin.userId, { language: lang })
+        }
+        request.session.adminUser.language = lang
+      }
+    }
+    return {
+      redirectUrl: this._admin.options.rootPath,
+    }
+  }
 }
 
 export default ApiController

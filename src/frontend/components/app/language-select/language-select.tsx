@@ -9,16 +9,19 @@ import {
 } from '@adminjs/design-system'
 import React, { FC, useMemo } from 'react'
 import { useTranslation } from '../../../hooks/index.js'
+import ApiClient from '../../../utils/api-client.js'
 
 const LanguageSelect: FC = () => {
   const {
     i18n: {
       language,
       options: { supportedLngs },
-      changeLanguage,
+      // changeLanguage,
     },
     translateComponent,
   } = useTranslation()
+
+  const api = new ApiClient()
 
   const availableLanguages: readonly string[] = useMemo(
     () => (supportedLngs ? supportedLngs.filter((lang) => lang !== 'cimode') : []),
@@ -42,8 +45,8 @@ const LanguageSelect: FC = () => {
           {availableLanguages.map((lang) => (
             <DropDownItem
               key={lang}
-              onClick={() => {
-                changeLanguage(lang)
+              onClick={async () => {
+                window.location.href = await api.switchLanguage(lang)
               }}
             >
               {translateComponent(`LanguageSelector.availableLanguages.${lang}`, { defaultValue: lang })}

@@ -251,6 +251,12 @@ class ApiClient {
     return response
   }
 
+  async switchLanguage(lang: string): Promise<string> {
+    const response = await this.client.post(`/api/language/${lang}`)
+    checkResponse(response)
+    return response.data.redirectUrl
+  }
+
   async refreshToken(data: Record<string, any>) {
     const response = await this.client.request({
       url: '/refresh-token',

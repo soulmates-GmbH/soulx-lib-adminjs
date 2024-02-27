@@ -171,6 +171,11 @@ export const Router: RouterType = {
     path: '/api/pages/{pageName}',
     Controller: ApiController,
     action: 'page',
+  }, {
+    method: 'POST',
+    path: '/api/language/{lang}',
+    Controller: ApiController,
+    action: 'switchLanguage',
   }],
 }
 
