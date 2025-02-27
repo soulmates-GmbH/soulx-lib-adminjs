@@ -58,9 +58,7 @@ function useRecords(resourceId: string): UseRecordsResult {
       setPage(listActionResponse.meta.page)
       setPerPage(listActionResponse.meta.perPage)
       setTotal(listActionResponse.meta.total)
-      if (listActionResponse.meta.custom) {
-        setCustom(listActionResponse.meta.custom)
-      }
+      setCustom(listActionResponse.meta.custom)
       setDirection(listActionResponse.meta.direction)
       setSortBy(listActionResponse.meta.sortBy)
       setLoading(false)
