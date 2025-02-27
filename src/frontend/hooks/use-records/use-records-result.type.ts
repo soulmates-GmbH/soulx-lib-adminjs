@@ -22,6 +22,7 @@ export type UseRecordsResult = {
   perPage: number;
   /** total number of pages in for current query */
   total: number;
+  custom?: any;
   /** sort direction */
   direction: 'asc' | 'desc';
   /** field used as a sortBy column */

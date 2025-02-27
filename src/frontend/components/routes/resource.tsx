@@ -50,6 +50,7 @@ const ResourceAction: React.FC<Props> = (props) => {
   const { resources } = props
   const { resourceId } = params
   const [tag, setTag] = useState('')
+  const [custom, setCustom] = useState<any>({})
 
   if (!resourceId) {
     return null
@@ -90,9 +91,10 @@ const ResourceAction: React.FC<Props> = (props) => {
           resource={resource}
           action={listAction}
           tag={tag}
+          custom={custom}
           toggleFilter={listAction.showFilter}
         />
-        <BaseAction action={listAction} resource={resource} setTag={setTag} />
+        <BaseAction action={listAction} resource={resource} setTag={setTag} setCustom={setCustom} />
       </Box>
       {listAction.showFilter && <FilterDrawer resource={resource} />}
     </Box>

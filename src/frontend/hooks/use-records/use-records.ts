@@ -27,6 +27,8 @@ function useRecords(resourceId: string): UseRecordsResult {
   const [perPage, setPerPage] = useState(10)
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
+  const [custom, setCustom] = useState({})
+
   const [direction, setDirection] = useState<'asc'| 'desc'>('asc')
   const [sortBy, setSortBy] = useState<string | undefined>()
   const location = useLocation()
@@ -56,6 +58,9 @@ function useRecords(resourceId: string): UseRecordsResult {
       setPage(listActionResponse.meta.page)
       setPerPage(listActionResponse.meta.perPage)
       setTotal(listActionResponse.meta.total)
+      if (listActionResponse.meta.custom) {
+        setCustom(listActionResponse.meta.custom)
+      }
       setDirection(listActionResponse.meta.direction)
       setSortBy(listActionResponse.meta.sortBy)
       setLoading(false)
@@ -85,6 +90,7 @@ function useRecords(resourceId: string): UseRecordsResult {
     loading,
     page,
     total,
+    custom,
     direction,
     sortBy,
     perPage,

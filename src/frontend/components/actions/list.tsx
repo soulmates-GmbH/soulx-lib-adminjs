@@ -11,7 +11,7 @@ import RecordsTable from '../app/records-table/records-table.js'
 import { ActionProps } from './action.props.js'
 import { REFRESH_KEY } from './utils/append-force-refresh.js'
 
-const List: React.FC<ActionProps> = ({ resource, setTag }) => {
+const List: React.FC<ActionProps> = ({ resource, setTag, setCustom }) => {
   const {
     records,
     loading,
@@ -19,6 +19,7 @@ const List: React.FC<ActionProps> = ({ resource, setTag }) => {
     sortBy,
     page,
     total,
+    custom,
     fetchData,
     perPage,
   } = useRecords(resource.id)
@@ -36,6 +37,12 @@ const List: React.FC<ActionProps> = ({ resource, setTag }) => {
       setTag(total.toString())
     }
   }, [total])
+
+  useEffect(() => {
+    if (setCustom) {
+      setCustom(custom)
+    }
+  }, [custom])
 
   useEffect(() => {
     setSelectedRecords([])

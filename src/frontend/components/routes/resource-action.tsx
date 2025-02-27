@@ -26,6 +26,7 @@ const ResourceAction: React.FC<Props> = (props) => {
   const { resources } = props
   const { resourceId, actionName } = params
   const [tag, setTag] = useState('')
+  const [custom, setCustom] = useState<any>({})
 
   const resource = resources.find((r) => r.id === resourceId)
   if (!resource) {
@@ -56,7 +57,7 @@ const ResourceAction: React.FC<Props> = (props) => {
           toggleFilter={action.showFilter}
           tag={tag}
         />
-        <BaseActionComponent action={action} resource={resource} setTag={setTag} />
+        <BaseActionComponent action={action} resource={resource} setTag={setTag} setCustom={setCustom} />
       </Box>
       {action.showFilter && <FilterDrawer resource={resource} />}
     </Wrapper>

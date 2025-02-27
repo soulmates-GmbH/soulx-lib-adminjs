@@ -61,7 +61,7 @@ declare const AdminJS: {
  * @subcategory Application
  */
 export const BaseActionComponent: React.FC<ActionProps> = (props) => {
-  const { resource, action, record, records, setTag } = props
+  const { resource, action, record, records, setTag, setCustom } = props
   const documentationLink = [DOCS, 'BaseAction.html'].join('/')
 
   const { translateMessage } = useTranslation()
@@ -81,6 +81,7 @@ export const BaseActionComponent: React.FC<ActionProps> = (props) => {
           record={record}
           records={records}
           setTag={setTag}
+          setCustom={setCustom}
         />
       </ErrorBoundary>
     )

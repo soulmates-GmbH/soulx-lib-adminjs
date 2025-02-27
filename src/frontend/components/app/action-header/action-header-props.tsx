@@ -20,6 +20,7 @@ export type ActionHeaderProps = {
   action: ActionJSON;
   /** Optional tag which will be rendered as a {@link Badge} */
   tag?: string;
+  custom?: any;
   /** If set, component wont render actions */
   omitActions?: boolean;
 };

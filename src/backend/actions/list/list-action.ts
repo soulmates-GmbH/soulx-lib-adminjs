@@ -102,5 +102,6 @@ export type ListActionResponse = ActionResponse & {
     direction: 'asc' | 'desc';
     sortBy: string;
     total: number;
+    custom?: any;
   };
 }
