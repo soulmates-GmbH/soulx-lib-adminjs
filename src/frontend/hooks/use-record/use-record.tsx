@@ -55,11 +55,22 @@ export const useRecord = (
 
   const onNotice = useNotice()
 
+  // Replace all regular quotes with the correct German quotes.
+  const replaceQuotesInText = (value) => {
+    return value.replace(/"/g, (match, offset, string) => {
+      let openQuotes = (string.slice(0, offset).match(/„/g) || []).length;
+      let closeQuotes = (string.slice(0, offset).match(/“/g) || []).length;
+      return openQuotes <= closeQuotes ? '„' : '“';
+    });
+  }
+
   const handleChange = useCallback((
     propertyOrRecord: RecordJSON | string,
     value?: any,
     incomingRecord?: RecordJSON,
   ): void => {
+    value = replaceQuotesInText(value);
+
     if (isEntireRecordGiven(propertyOrRecord, value)) {
       setFilteredRecord(propertyOrRecord as RecordJSON)
     } else if (isPropertyPermitted(propertyOrRecord as string, options)) {
