@@ -57,11 +57,11 @@ export const useRecord = (
 
   // Replace all regular quotes with the correct German quotes.
   const replaceQuotesInText = (value) => {
-    return value.replace(/"/g, (match, offset, string) => {
+    return value?.replace ? value.replace(/"/g, (match, offset, string) => {
       let openQuotes = (string.slice(0, offset).match(/„/g) || []).length;
       let closeQuotes = (string.slice(0, offset).match(/“/g) || []).length;
       return openQuotes <= closeQuotes ? '„' : '“';
-    });
+    }) : value;
   }
 
   const handleChange = useCallback((
